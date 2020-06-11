@@ -1,0 +1,25 @@
+{
+  "name": "hello-immer",
+  "version": "1.0.0",
+  "description": "Hello immer",
+  "main": "index.js",
+  "scripts": {
+    "test": "alsatian \"./src/**/*.spec.ts\"",
+    "build": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/typesafedev/hello-immer.git"
+  },
+  "author": "Andy Lam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/typesafedev/hello-immer/issues"
+  },
+  "homepage": "https://github.com/typesafedev/hello-immer#readme",
+  "dependencies": {
+    "alsatian": "^3.2.1",
+    "immer": "^7.0.0",
+    "typescript": "^3.9.5"
+  }
+}
