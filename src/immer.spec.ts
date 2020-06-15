@@ -1,12 +1,14 @@
 import { produce } from "immer"
 import { Expect, Test, TestFixture } from "alsatian"
 import { denver, Animal, fred, rocky } from "./Animal"
+import { always } from "ramda"
 
 @TestFixture("ramda lens tests")
 export class ramdaLensTests {
     @Test("viewDataWithProduce")
     public viewLensTest() {
-        Expect(produce(denver, draft =>{}).friends).toBe(denver.friends)
+        const noop = always(undefined);
+        Expect(produce(denver, noop).friends).toBe(denver.friends)
     }
 
     @Test("setDataWithProduce")

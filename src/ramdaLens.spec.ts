@@ -1,5 +1,5 @@
 
-import { lensProp, view, set, over, lensPath, compose } from "ramda"
+import { lensProp, view, set, over, lensPath } from "ramda"
 import { Expect, Test, TestFixture } from "alsatian"
 import { denver, Animal, fred, rocky, joanne } from "./Animal"
 
@@ -32,9 +32,9 @@ export class ramdaLensTests {
     public viewLensFirstClassComposeTest() {
         // Lenses are 1st class so composition should work. 
         // Unfortunately, ramda lens composition does not preserve the entire Lens structure in TS
-        const nameLens = lensProp("name")
-        const fatherLens = lensProp("father")
-        const fathersNameLens = compose(nameLens, fatherLens) // oops, we get getter of lens but lose the setter so ff type errs
+        // const nameLens = lensProp("name")
+        // const fatherLens = lensProp("father")
+        // const fathersNameLens = compose(nameLens, fatherLens) // oops, we get getter of lens but lose the setter so ff type errs
         // Expect(view(fathersNameLens, denver)).toBe(denver.father.name)
     }
 

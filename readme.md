@@ -32,3 +32,19 @@ const cloneWithImmer = produce(obj, draft => {
 cloneWithImmer.bar.baz = "bar2" // TypeError: Cannot assign to read only property 'baz' of object '#<Object>'
 
 ```
+
+```json
+  "eslintConfig": {
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+      "ecmaVersion": 2020,
+      "sourceType": "module"
+    },
+    "plugins": [
+      "fp"
+    ],
+    "extends": [
+      "plugin:fp/recommended" /* A really strict set of functional rules  */
+    ]
+  }
+```

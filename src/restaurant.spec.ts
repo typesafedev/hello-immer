@@ -36,7 +36,7 @@ export class RestaurantTests {
         // ModRestaurant is frozen so any attempt to change it type errors
         Expect(Object.isFrozen(modRestaurant))
 
-        const modStreet1 = "Main Street"
+        // const modStreet1 = "Main Street"
         // Compile time TypeError: Cannot assign to read only property 'street' of object '#<Object>'
         // modRestaurant.address.street = modStreet1
     }

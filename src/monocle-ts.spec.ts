@@ -1,7 +1,7 @@
 import { john, Employee, Company, Address, Street } from "./Employee"
 import { TestFixture, Test, Expect } from "alsatian";
 import { Lens, Optional, Prism, fromTraversable, Iso } from "monocle-ts"
-import { some, none, fold, map, toNullable, getOrElse, Option, isNone } from "fp-ts/lib/Option";
+import { some, none, fold, toNullable, getOrElse, Option } from "fp-ts/lib/Option";
 import { pipe, identity } from "fp-ts/lib/function";
 import { array } from "fp-ts/lib/Array"
 import { Animal } from "./Animal";
