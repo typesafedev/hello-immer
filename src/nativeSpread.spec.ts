@@ -27,7 +27,11 @@ export class nativeSpreadTests {
 
     @Test("viewDeepNestedData")
     public viewDeepPropAndIndexTest() {
-        const name = denver.friends[0].pets[0].name
+        const name = denver.friends && 
+            denver.friends[0] &&
+            denver.friends[0].pets &&
+            denver.friends[0].pets[0] && 
+            denver.friends[0].pets[0].name
         Expect(name).toBe(rocky.name);
     }
 

@@ -1,10 +1,11 @@
 import { john, Employee, Company, Address, Street } from "./Employee"
 import { TestFixture, Test, Expect } from "alsatian";
-import { Lens, Optional, Prism, fromTraversable, Iso } from "monocle-ts"
+import { Lens, Optional, Prism, fromTraversable, Iso, Traversal } from "monocle-ts"
+import { indexArray } from "monocle-ts/lib/Index/Array"
 import { some, none, fold, toNullable, getOrElse, Option } from "fp-ts/lib/Option";
 import { pipe, identity } from "fp-ts/lib/function";
-import { array } from "fp-ts/lib/Array"
-import { Animal } from "./Animal";
+import { array, head } from "fp-ts/lib/Array"
+import { Animal, denver, rocky } from "./Animal";
 
 const capitalize = (s: string): string => s.substring(0, 1).toUpperCase() + s.substring(1)
 const isCapital = (c: string): boolean => c === c.toUpperCase() && c !== c.toLowerCase()
@@ -172,6 +173,60 @@ export class monocleTsTests {
         const johnCapitalizeOptional = firstLetter.modify(s => s.toUpperCase())(john)
         
         Expect(johnCapitalizeOptional).toEqual(johnCapitalized)
+    }
+
+    @Test("Deep optional get")
+    public deepOptionalGet() {
+        const name = denver.friends && 
+            denver.friends[0] &&
+            denver.friends[0].pets &&
+            denver.friends[0].pets[0] && 
+            denver.friends[0].pets[0].name
+        Expect(name).toBe(rocky.name);
+        
+        // Expressed in a monocle. Awesome
+        // This is freaking awesome
+        const friends = Lens.fromProp<Animal>()("friends") // Lens<Animal, Animal[]>
+        const firstFriend = indexArray<Animal>().index(0) // Optional<Animal[], Animal>
+        const pets = Lens.fromProp<Animal>()("pets") // Lens<Animal, Animal[]>
+        const firstPet = indexArray<Animal>().index(0) // Optional<Animal[], Animal>
+        const nameLens = Lens.fromProp<Animal>()("name") // Lens<Animal, string>
+
+        const firstPetOfFirstFriendName = 
+            friends
+                .composeOptional(firstFriend)
+                .composeLens(pets)
+                .composeOptional(firstPet)
+                .composeLens(nameLens)
+        
+        const onNone = () => ""
+        Expect(getOrElse(onNone)(firstPetOfFirstFriendName.getOption(denver))).toEqual(rocky.name)
+    }
+
+    @Test("Deep optional get 1")
+    public deepOptionalGet1() {
+        
+        const friendsLens = Lens.fromProp<Animal>()("friends") // Lens<Animal, Animal[]>
+        const animalTraversal = fromTraversable(array)<Animal>() // Traversal<Animal[], Animal>
+        // Focus on Animal with specific name
+        const getAnimalPrism = (name: string): Prism<Animal, Animal> => Prism.fromPredicate(friend => friend.name === name)
+        const petsLens = Lens.fromProp<Animal>()("pets")
+        const nameLens = Lens.fromProp<Animal>()("name")
+        
+        const getFriendsNameTraversal = (name: string): Traversal<Animal, string> => 
+            friendsLens
+                .composeTraversal(animalTraversal)
+                .composePrism(getAnimalPrism(name))
+                .composeLens(nameLens)
+
+        const nameTraversal = 
+            friendsLens
+                .composeTraversal(animalTraversal)
+                .composeLens(petsLens)
+                .composeTraversal(animalTraversal)
+                .composeLens(nameLens)
+        
+        //Expect(nameTraversal.
     }
 
     @Test("Traversal")
