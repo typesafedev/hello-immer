@@ -203,6 +203,27 @@ export class monocleTsTests {
         Expect(getOrElse(onNone)(firstPetOfFirstFriendName.getOption(denver))).toEqual(rocky.name)
     }
 
+    @Test("Deep optional set")
+    public deepOptionalSet() {
+        
+        const friendsLens = Lens.fromProp<Animal>()("friends") // Lens<Animal, Animal[]>
+        // Focus on Animal at specific index
+        const getAnimalByIndex = (index: number) => indexArray<Animal>().index(index) // Optional<Animal[], Animal>
+        const petsLens = Lens.fromProp<Animal>()("pets") // Lens<Animal, Animal[]>
+        const nameLens = Lens.fromProp<Animal>()("name") // Lens<Animal, string>
+        
+        const friendsPetsNameOptional = (friendIndex: number, petIndex: number) => 
+            friendsLens
+                .composeOptional(getAnimalByIndex(friendIndex))
+                .composeLens(petsLens)
+                .composeOptional(getAnimalByIndex(petIndex))
+                .composeLens(nameLens)
+        
+        const firstFriendsFirstPetNameOptional = friendsPetsNameOptional(0, 0)
+        const denverChanged = firstFriendsFirstPetNameOptional.set("Johan")(denver)
+        Expect(denverChanged.friends[0].pets[0].name).toEqual("Johan")
+    }
+
     @Test("Deep optional get 1")
     public deepOptionalGet1() {
         
