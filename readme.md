@@ -9,7 +9,7 @@ Within produce(), you can **mutate** a temp copy of the currentState called the 
 the nextState. This nextState is an immutable object produced via Object.freeze().
 
 This is unlike packages like immutablejs which require you to learn 100s of new types and functions.
-Immer works with native javascript typeps so there is no need to convert between immutable types and js types.
+Immer works with native javascript types so there is no need to convert between immutable types and js types.
 
 produce() api is strongly types with no string based path selectors.
 Deep updates are easy.
