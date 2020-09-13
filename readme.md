@@ -2,6 +2,9 @@
 
 immer is a tiny package that allows you to easily work with immutable state using a tiny api.
 
+This assumes that immutability is a good thing because it is seperates the effects of causality from mutation.
+In react, reconciliation can be done in log n time instead of the usual linear time - note linear time is already very good. Therefore re-renders of the DOM is more performant with immutable structures.
+
 ## Basics
 
 To get started, you just need to learn just 1 function called produce().
