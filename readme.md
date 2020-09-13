@@ -2,7 +2,7 @@
 
 immer is a tiny package that allows you to easily work with immutable state using a tiny api.
 
-This assumes that immutability is a good thing because it is seperates the effects of causality from mutation.
+This assumes that immutability is a good thing because it is separates the effects of causality from mutation.
 In react, reconciliation can be done in log n time instead of the usual linear time - note linear time is already very good. Therefore re-renders of the DOM is more performant with immutable structures.
 
 ## Basics
@@ -14,7 +14,7 @@ the nextState. This nextState is an immutable object produced via Object.freeze(
 This is unlike packages like immutablejs which require you to learn 100s of new types and functions.
 Immer works with native javascript types so there is no need to convert between immutable types and js types.
 
-produce() api is strongly types with no string based path selectors.
+produce() api is strongly typed with no string based path selectors.
 Deep updates are easy.
 
 ```typescript
@@ -27,6 +27,7 @@ const clone = { ...obj }
 const cloneWithSpread = { ...obj, bar: { baz: "bar1" }}
 // cloneWithSpread is still mutable.
 cloneWithSpread.bar.baz = "bar2"
+// Of course, we can always call Object.freeze() on cloneWithSpread to make it immutable to 1 level
 
 const cloneWithImmer = produce(obj, draft => {
     draft.bar.baz = "bar1"
