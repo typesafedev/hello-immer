@@ -10,6 +10,8 @@ In react, reconciliation can be done in log n time instead of the usual linear t
 To get started, you just need to learn just 1 function called produce().
 Within produce(), you can **mutate** a temp copy of the currentState called the draftState to produce
 the nextState. This nextState is an immutable object produced via Object.freeze().
+So we mutate locally within the produce() function, the produced object from produce() is immutable
+and the original object is not mutated.
 
 This is unlike packages like immutablejs which require you to learn 100s of new types and functions.
 Immer works with native javascript types so there is no need to convert between immutable types and js types.
