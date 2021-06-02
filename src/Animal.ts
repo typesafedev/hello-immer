@@ -1,5 +1,5 @@
 // Animal is a recursive type.
-// We need a 3 level hierarchy to truly demostate power of either lenses or immer 
+// We need a 3 level hierarchy to demonstate the power of either lenses or immer 
 export type Animal = {
     name: string,
     type: string,
