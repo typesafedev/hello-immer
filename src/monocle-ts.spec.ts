@@ -184,13 +184,12 @@ export class monocleTsTests {
             denver.friends[0].pets[0].name
         Expect(name).toBe(rocky.name);
         
-        // Expressed in a monocle. Awesome
-        // This is freaking awesome
-        const friends = Lens.fromProp<Animal>()("friends") // Lens<Animal, Animal[]>
-        const firstFriend = indexArray<Animal>().index(0) // Optional<Animal[], Animal>
-        const pets = Lens.fromProp<Animal>()("pets") // Lens<Animal, Animal[]>
-        const firstPet = indexArray<Animal>().index(0) // Optional<Animal[], Animal>
-        const nameLens = Lens.fromProp<Animal>()("name") // Lens<Animal, string>
+        // Expressed in a monocle. Freaking awesome
+        const friends = Lens.fromProp<Animal>()("friends") // Lens<Animal, Animal[]>    // Given an Animal return array of Animals
+        const firstFriend = indexArray<Animal>().index(0) // Optional<Animal[], Animal> // Given array of Animals return first Animal which may or may not exist
+        const pets = Lens.fromProp<Animal>()("pets") // Lens<Animal, Animal[]>          // Given an Animal return array of Animals 
+        const firstPet = indexArray<Animal>().index(0) // Optional<Animal[], Animal>    // Given array of Animals return first Animal which may or may not exist
+        const nameLens = Lens.fromProp<Animal>()("name") // Lens<Animal, string>        // Given an Animal return a string
 
         const firstPetOfFirstFriendName = 
             friends
@@ -201,6 +200,8 @@ export class monocleTsTests {
         
         const onNone = () => ""
         Expect(getOrElse(onNone)(firstPetOfFirstFriendName.getOption(denver))).toEqual(rocky.name)
+        // Should add similar test where first friend is null
+        // Should add similar test where first pet is null
     }
 
     @Test("Deep optional set")
