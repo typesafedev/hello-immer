@@ -7,7 +7,7 @@ In react, reconciliation via immutability can be done in log n time instead of t
 
 ## Basics
 
-To get started, you just need to learn just 1 function called produce().
+To get started, you just need to learn 1 function called produce().
 Within produce(), you can **mutate** a temp copy of the currentState called the draftState to produce
 the nextState. This nextState is an immutable object produced via Object.freeze().
 So we mutate locally within the produce() function, the produced object from produce() is immutable
